@@ -63,7 +63,7 @@ function draw() {
       textSize(13);
       text("Punch LEFT",100,180);
       text("Punch RIGHT",100,230);
-      text("↓ Down Arrow (Crouch)",100,280);
+      text("↓ Down Arrow (Duck)",100,280);
       text("→ Right Arrow (Dodge Right)",110,340);
       text("← Left Arrow (Dodge Left)",110,400);
 
@@ -130,26 +130,33 @@ function draw() {
       rect(-90,15,140,340);
 
       noStroke();
-
-      for(let i=0;i<spots.length;i++){
-
+        
+      //Number & Color Indicator
+      for(let i=0; i<spots.length; i++){
+        
         if(spots[i].id === sequence[sequenceIndex]){
+      
+          if (roundNumber <= 7) {
+            fill(feedbackTimer > 0 ? feedbackColor : color(255, 255, 0));
+          } else {
+            fill(feedbackTimer > 0 ? feedbackColor : color(200));
+          }
 
-          fill(feedbackTimer > 0 ? feedbackColor : color(255,255,0));
-          ellipse(spots[i].x,spots[i].y,75);
+          ellipse(spots[i].x, spots[i].y, 75);
 
-          //Number Disappearance
           if (roundNumber <= 7) {
             fill(0);
             textSize(30);
-            textAlign(CENTER,CENTER);
+            textAlign(CENTER, CENTER);
             text(spots[i].id, spots[i].x, spots[i].y);
           }
+
         } else {
           fill(200);
-          ellipse(spots[i].x,spots[i].y,75);
+          ellipse(spots[i].x, spots[i].y, 75);
         }
       }
+      
       pop();
 
       if(feedbackTimer > 0) feedbackTimer--;
@@ -258,7 +265,7 @@ function checkInputs(){
     rightGloveY = lerp(rightGloveY,gloveResetY,0.2);
   }
 
-  // BLOCK
+  // Duck
   if(keyIsDown(DOWN_ARROW)){
     leftGloveY = lerp(leftGloveY,440,0.3);
     rightGloveY = lerp(rightGloveY,440,0.3);
